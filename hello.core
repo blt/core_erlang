@@ -1,0 +1,32 @@
+module 'hello' ['main'/1,
+		'module_info'/0,
+		'module_info'/1]
+    attributes [%% Line 5
+		'spec' =
+		    %% Line 5
+		    [{{'main',1},[{'type',5,'fun',[{'type',5,'product',[{'ann_type',5,[{'var',5,'Name'}|[{'type',5,'string',[]}]]}]}|[{'atom',5,'ok'}]]}]}]]
+'main'/1 =
+    %% Line 6
+    fun (_cor0) ->
+	case _cor0 of
+	  <Name>
+	      when call 'erlang':'is_list'
+		    (_cor0) ->
+	      %% Line 7
+	      call 'io':'format'
+		  ([72|[101|[108|[108|[111|[44|[32|[126|[112|[33|[126|[110]]]]]]]]]]]], [Name|[]])
+	  ( <_cor1> when 'true' ->
+		( primop 'match_fail'
+		      ({'function_clause',_cor1})
+		  -| [{'function_name',{'main',1}}] )
+	    -| ['compiler_generated'] )
+	end
+'module_info'/0 =
+    fun () ->
+	call 'erlang':'get_module_info'
+	    ('hello')
+'module_info'/1 =
+    fun (_cor0) ->
+	call 'erlang':'get_module_info'
+	    ('hello', _cor0)
+end

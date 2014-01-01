@@ -1,0 +1,1 @@
+module Properties.Common () where
