@@ -1,63 +1,61 @@
-module Language.Erlang.Lexer (
-            identifier, reserved, operator, reservedOp, charLiteral, stringLiteral,
-            natural, integer, float, naturalOrFloat, decimal, hexadecimal, octal,
-            symbol, lexeme, whiteSpace, parens, braces, angles, brackets, semi,
-            comma, colon, dot, semiSep, semiSep1, commaSep, commaSep1,
-    ) where
+module Language.Erlang.Lexer where
+
 
 import Text.Parsec
-import qualified Text.Parsec.Token as P
-import Text.Parsec.Language
+import Text.Parsec.String (Parser)
+import Text.Parsec.Language (emptyDef)
 
-erlangStyle :: P.LanguageDef st
-erlangStyle = P.LanguageDef
+import qualified Text.Parsec.Token as Tok
+
+erlangStyle :: Tok.LanguageDef st
+erlangStyle = Tok.LanguageDef
               {
-                P.commentStart   = ""
-              , P.commentEnd     = ""
-              , P.commentLine    = "%"
-              , P.nestedComments = False
-              , P.identStart     = letter <|> char '_'
-              , P.identLetter    = alphaNum <|> oneOf "_'"
-              , P.opStart        = P.opLetter emptyDef
-              , P.opLetter       = oneOf "+-=/" -- incomplete
-              , P.reservedOpNames= []
-              , P.reservedNames  = ["after", "and", "andalso", "band",
+                Tok.commentStart   = ""
+              , Tok.commentEnd     = ""
+              , Tok.commentLine    = "%"
+              , Tok.nestedComments = False
+              , Tok.identStart     = letter <|> char '_'
+              , Tok.identLetter    = alphaNum <|> oneOf "_'"
+              , Tok.opStart        = Tok.opLetter emptyDef
+              , Tok.opLetter       = oneOf "+-=/" -- incomplete
+              , Tok.reservedOpNames= []
+              , Tok.reservedNames  = ["after", "and", "andalso", "band",
                                     "begin", "bnot", "bor", "bsl",
                                     "bsr", "bxor", "case", "catch",
                                     "cond", "div", "end", "fun",
                                     "if", "let", "not", "of", "or",
                                     "orelse", "receive", "rem", "try", "when", "xor"]
-              , P.caseSensitive  = True
+              , Tok.caseSensitive  = True
               }
 
 
-lexer = P.makeTokenParser erlangStyle
+lexer = Tok.makeTokenParser erlangStyle
 
-identifier = P.identifier lexer
-reserved = P.reserved lexer
-operator = P.operator lexer
-reservedOp = P.reservedOp lexer
-charLiteral = P.charLiteral lexer
-stringLiteral = P.stringLiteral lexer
-natural = P.natural lexer
-integer = P.integer lexer
-float = P.float lexer
-naturalOrFloat = P.naturalOrFloat lexer
-decimal = P.decimal lexer
-hexadecimal = P.hexadecimal lexer
-octal = P.octal lexer
-symbol = P.symbol lexer
-lexeme = P.lexeme lexer
-whiteSpace = P.whiteSpace lexer
-parens = P.parens lexer
-braces = P.braces lexer
-angles = P.angles lexer
-brackets = P.brackets lexer
-semi = P.semi lexer
-comma = P.comma lexer
-colon = P.colon lexer
-dot = P.dot lexer
-semiSep = P.semiSep lexer
-semiSep1 = P.semiSep1 lexer
-commaSep = P.commaSep lexer
-commaSep1 = P.commaSep1 lexer
+identifier     = Tok.identifier lexer
+reserved       = Tok.reserved lexer
+operator       = Tok.operator lexer
+reservedOp     = Tok.reservedOp lexer
+charLiteral    = Tok.charLiteral lexer
+stringLiteral  = Tok.stringLiteral lexer
+natural        = Tok.natural lexer
+integer        = Tok.integer lexer
+float          = Tok.float lexer
+naturalOrFloat = Tok.naturalOrFloat lexer
+decimal        = Tok.decimal lexer
+hexadecimal    = Tok.hexadecimal lexer
+octal          = Tok.octal lexer
+symbol         = Tok.symbol lexer
+lexeme         = Tok.lexeme lexer
+whiteSpace     = Tok.whiteSpace lexer
+parens         = Tok.parens lexer
+braces         = Tok.braces lexer
+angles         = Tok.angles lexer
+brackets       = Tok.brackets lexer
+semi           = Tok.semi lexer
+comma          = Tok.comma lexer
+colon          = Tok.colon lexer
+dot            = Tok.dot lexer
+semiSep        = Tok.semiSep lexer
+semiSep1       = Tok.semiSep1 lexer
+commaSep       = Tok.commaSep lexer
+commaSep1      = Tok.commaSep1 lexer

@@ -1,4 +1,4 @@
-CABAL=`which cabal-dev`
+CABAL=`which cabal`
 
 all: compile
 

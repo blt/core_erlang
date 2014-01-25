@@ -1,28 +1,39 @@
 module Properties.Core where
 
-import qualified Language.Erlang.Core as Core
-import Language.Erlang.AST
+import Language.Erlang.AST as AST
+import Language.Erlang.Core as Core
 
 import Test.Framework (Test)
-import Test.HUnit (assertBool, assertEqual, Assertion)
-import Test.Framework.Providers.QuickCheck2 (testProperty)
-import Test.Framework.Providers.HUnit (testCase)
+import Test.Framework.Providers.QuickCheck2
+import Test.QuickCheck.Arbitrary
+import Test.QuickCheck.Gen
 
--- t_concurrent :: String -> Bool
--- t_concurrent s = Core.is_concurrent s
+instance Arbitrary AST where
+    arbitrary = oneof [
+                 return $ ErlQuotedAtom "foo"
+                -- , return $ ErlQuotedAtom "'TheLordGod'"
+                ]
 
-basics :: Assertion
-basics = assertEqual "" (Core.p "module 'foo'") (Right (ErlModule {_modName = "foo"}))
+parse_prop :: AST.AST -> Bool
+parse_prop ast = (parse s) == (parse . AST.pretty . parse) s
+    where
+      s = AST.pretty ast
+      parse = Core.forceParse
 
+-- basics :: Assertion
+-- basics = assertEqual "" (Core.p "module 'foo'") (Right (ErlModule {_modName = "foo"}))
 
---(Core.p "module 'foonane'")
+-- atom :: Assertion
+-- atom =  assertEqual "" (Prs.atom "'anatom'") (Prs.atom "anatom")
 
-sanity :: Assertion
-sanity = assertBool "world is sane" True
+-- quoted_atom :: Assertion
+-- quoted_atom = assertEqual "" (parse Prs.atom "'anatom'") (Right (ErlAtom "anatom"))
+
+-- underscore_atom :: Assertion
+-- underscore_atom = assertEqual "" (Prs.atom "an_atom") (Right (ErlAtom "an_atom"))
 
 properties :: [Test]
-properties = [ ] -- testProperty "t_concurrent" $ t_concurrent ]
+properties = [ testProperty "parse_prop" $ parse_prop ]
 
 assertions :: [Test]
-assertions = [ testCase "sanity" sanity
-             , testCase "basics" basics ]
+assertions = [ ]

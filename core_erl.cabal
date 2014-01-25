@@ -26,8 +26,9 @@ library
     transformers ==0.3.*,
     -- lens ==3.10.*
     -- text == 1.0.*,
-    parsec ==3.1.*
-  extensions: RankNTypes
+    parsec ==3.1.*,
+    pretty ==1.1.*
+  default-extensions: RankNTypes
   ghc-options:
     -Wall -funbox-strict-fields -O2 -fwarn-tabs
 
