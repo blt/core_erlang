@@ -1,6 +1,9 @@
 CABAL=`which cabal`
 
-all: compile
+all: configure compile
+
+configure:
+	@$(CABAL) configure
 
 compile:
 	@$(CABAL) build

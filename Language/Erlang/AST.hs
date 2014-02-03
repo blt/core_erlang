@@ -5,12 +5,12 @@ import Text.PrettyPrint.HughesPJ
 
 data AST
     = ErlQuotedAtom String
-    -- = ErlAtom String
+    | ErlUnquotedAtom String
     -- | ErlModule { _modName :: ErlAtom }
     deriving (Show, Eq)
 
 prettyDoc :: AST -> Doc
--- prettyDoc (ErlQuotedAtom atom) = text atom
+prettyDoc (ErlUnquotedAtom atom) = text atom
 prettyDoc (ErlQuotedAtom atom) = quotes $ text atom
 
 pretty :: AST -> String
