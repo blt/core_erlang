@@ -1,17 +1,16 @@
 module Main (main) where
 
-import Test.Framework (defaultMain, testGroup, Test)
-
+import Test.Tasty
 import qualified Properties.Core as Core
 
-properties :: [Test]
-properties = [ testGroup "core" Core.properties ]
+main :: IO ()
+main = defaultMain tests
 
-assertions :: [Test]
-assertions = [ testGroup "core_assertions" Core.assertions ]
+tests :: TestTree
+tests = testGroup "Tests" [properties]
 
-main :: IO()
-main = defaultMain [
-        testGroup "properties" properties,
-        testGroup "assertions" assertions
-       ]
+properties :: TestTree
+properties = testGroup "Properties" qcProps
+
+qcProps :: [TestTree]
+qcProps = Core.properties

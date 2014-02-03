@@ -6,9 +6,9 @@ import Data.Char (isLower)
 import Language.Erlang.AST as AST
 import Language.Erlang.Core as Core
 
-import Test.Framework (Test)
-import Test.Framework.Providers.QuickCheck2
-import Test.QuickCheck.Arbitrary
+import Test.Tasty
+import Test.Tasty.QuickCheck as QC
+
 import Test.QuickCheck.Gen
 
 instance Arbitrary AST where
@@ -32,20 +32,5 @@ parse_prop ast = (parse s) == (parse . AST.pretty . parse) s
       s = AST.pretty ast
       parse = Core.forceParse
 
--- basics :: Assertion
--- basics = assertEqual "" (Core.p "module 'foo'") (Right (ErlModule {_modName = "foo"}))
-
--- atom :: Assertion
--- atom =  assertEqual "" (Prs.atom "'anatom'") (Prs.atom "anatom")
-
--- quoted_atom :: Assertion
--- quoted_atom = assertEqual "" (parse Prs.atom "'anatom'") (Right (ErlAtom "anatom"))
-
--- underscore_atom :: Assertion
--- underscore_atom = assertEqual "" (Prs.atom "an_atom") (Right (ErlAtom "an_atom"))
-
-properties :: [Test]
-properties = [ testProperty "parse_prop" $ parse_prop ]
-
-assertions :: [Test]
-assertions = [ ]
+properties :: [TestTree]
+properties = [QC.testProperty "parse/pretty-print identity" $ parse_prop ]
