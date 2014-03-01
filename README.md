@@ -1,5 +1,7 @@
 # Language.Erlang.Core
 
+[![Build Status](https://travis-ci.org/blt/core_erlang.png)](https://travis-ci.org/blt/core_erlang)
+
 This is a _very_ rough start at providing a parser for both [Erlang](http://www.erlang.org/) and
 [Core Erlang](http://www.it.uu.se/research/group/hipe/cerl/). It doesn't do much
 but parse a few elements of the syntax, but there is a quick-check suite in
