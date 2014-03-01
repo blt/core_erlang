@@ -1,11 +1,18 @@
 module Language.Erlang.Lexer where
 
-
 import Text.Parsec
-import Text.Parsec.String (Parser)
 import Text.Parsec.Language (emptyDef)
 
+import Data.Functor.Identity (Identity)
+
 import qualified Text.Parsec.Token as Tok
+
+lexer   :: forall u. Tok.GenTokenParser String u Identity
+braces  :: forall u a. ParsecT String u Identity a -> ParsecT String u Identity a
+comma   :: forall u. ParsecT String u Identity String
+float   :: forall u. ParsecT String u Identity Double
+integer :: forall u. ParsecT String u Identity Integer
+symbol  :: forall u. String -> ParsecT String u Identity String
 
 erlangStyle :: Tok.LanguageDef st
 erlangStyle = Tok.LanguageDef
@@ -31,31 +38,31 @@ erlangStyle = Tok.LanguageDef
 
 lexer = Tok.makeTokenParser erlangStyle
 
-identifier     = Tok.identifier lexer
-reserved       = Tok.reserved lexer
-operator       = Tok.operator lexer
-reservedOp     = Tok.reservedOp lexer
-charLiteral    = Tok.charLiteral lexer
-stringLiteral  = Tok.stringLiteral lexer
-natural        = Tok.natural lexer
-integer        = Tok.integer lexer
-float          = Tok.float lexer
-naturalOrFloat = Tok.naturalOrFloat lexer
-decimal        = Tok.decimal lexer
-hexadecimal    = Tok.hexadecimal lexer
-octal          = Tok.octal lexer
-symbol         = Tok.symbol lexer
-lexeme         = Tok.lexeme lexer
-whiteSpace     = Tok.whiteSpace lexer
-parens         = Tok.parens lexer
+-- angles         = Tok.angles lexer
 braces         = Tok.braces lexer
-angles         = Tok.angles lexer
-brackets       = Tok.brackets lexer
-semi           = Tok.semi lexer
+-- brackets       = Tok.brackets lexer
+-- charLiteral    = Tok.charLiteral lexer
+-- colon          = Tok.colon lexer
 comma          = Tok.comma lexer
-colon          = Tok.colon lexer
-dot            = Tok.dot lexer
-semiSep        = Tok.semiSep lexer
-semiSep1       = Tok.semiSep1 lexer
-commaSep       = Tok.commaSep lexer
-commaSep1      = Tok.commaSep1 lexer
+-- commaSep       = Tok.commaSep lexer
+-- commaSep1      = Tok.commaSep1 lexer
+-- decimal        = Tok.decimal lexer
+-- dot            = Tok.dot lexer
+float          = Tok.float lexer
+-- hexadecimal    = Tok.hexadecimal lexer
+-- identifier     = Tok.identifier lexer
+integer        = Tok.integer lexer
+-- lexeme         = Tok.lexeme lexer
+-- natural        = Tok.natural lexer
+-- naturalOrFloat = Tok.naturalOrFloat lexer
+-- octal          = Tok.octal lexer
+-- operator       = Tok.operator lexer
+-- parens         = Tok.parens lexer
+-- reserved       = Tok.reserved lexer
+-- reservedOp     = Tok.reservedOp lexer
+-- semi           = Tok.semi lexer
+-- semiSep        = Tok.semiSep lexer
+-- semiSep1       = Tok.semiSep1 lexer
+-- stringLiteral  = Tok.stringLiteral lexer
+symbol         = Tok.symbol lexer
+-- whiteSpace     = Tok.whiteSpace lexer

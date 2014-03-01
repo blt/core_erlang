@@ -8,6 +8,6 @@ configure:
 compile:
 	@$(CABAL) build
 
-test: compile
+test: configure compile
 	@$(CABAL) install --enable-tests -j
 	./dist/build/tests/tests +RTS -N

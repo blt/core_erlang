@@ -8,9 +8,6 @@ import Language.Erlang.Parser
 import Text.Parsec (parse)
 import Text.Parsec.Error
 
-instance Eq ParseError where
-   a == b = errorMessages a == errorMessages b
-
 p :: String -> Either ParseError AST
 p s = parse erlCoreParser "parameter" s
 
