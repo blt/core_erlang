@@ -48,11 +48,14 @@ comma          = Tok.comma lexer
 -- commaSep1      = Tok.commaSep1 lexer
 -- decimal        = Tok.decimal lexer
 -- dot            = Tok.dot lexer
-float          = Tok.float lexer
+float          = do
+    sign <- lexeme (do char '-' ; return (-1)) <|> return 1
+    num <- Tok.float lexer
+    return (sign * num)
 -- hexadecimal    = Tok.hexadecimal lexer
 -- identifier     = Tok.identifier lexer
 integer        = Tok.integer lexer
--- lexeme         = Tok.lexeme lexer
+lexeme         = Tok.lexeme lexer
 -- natural        = Tok.natural lexer
 -- naturalOrFloat = Tok.naturalOrFloat lexer
 -- octal          = Tok.octal lexer
