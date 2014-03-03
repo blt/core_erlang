@@ -19,11 +19,10 @@ instance Arbitrary AST where
                 -- , liftM ErlQuotedAtom quoteAtomGen
                 , liftM ErlInteger $ choose (-10000, 10000)
                 , liftM ErlFloat $ choose (-10000.0, 100000.0)
-                , liftM ErlTuple $ sized tupleGen
+                , liftM ErlTuple $ tupleGen
                 ]
 
-tupleGen n = replicateM n' arbitrary
-    where n' = round $ fromIntegral n / 4.0
+tupleGen = replicateM 3 arbitrary
 
 alphabet :: String
 alphabet = '_':['A'..'Z'] ++ ['a'..'z'] ++ ['0'..'9']
