@@ -25,14 +25,15 @@ instance Arbitrary AST where
 tupleGen n = replicateM n' arbitrary
     where n' = round $ fromIntegral n / 4.0
 
+alphabet :: String
+alphabet = '_':['A'..'Z'] ++ ['a'..'z'] ++ ['0'..'9']
+
 bareAtomGen :: Gen String
 bareAtomGen = suchThat (listOf1 $ resize 256 $ elements alphabet) (\(s:_) -> isLower s)
-    where alphabet = "_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 
 quoteAtomGen :: Gen String
 quoteAtomGen = liftM (\s -> ('\'':reverse (('\'':reverse s))))
                $ listOf1 $ resize 256 $ elements alphabet
-    where alphabet = "_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 
 parse_prop :: AST.AST -> Bool
 parse_prop ast = (parse s) == (parse . AST.pretty . parse) s
