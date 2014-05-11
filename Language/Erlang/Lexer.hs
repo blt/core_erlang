@@ -12,6 +12,7 @@ braces  :: forall u a. ParsecT String u Identity a -> ParsecT String u Identity 
 comma   :: forall u. ParsecT String u Identity String
 float   :: forall u. ParsecT String u Identity Double
 integer :: forall u. ParsecT String u Identity Integer
+lexeme  :: forall u a. ParsecT String u Identity a -> ParsecT String u Identity a
 symbol  :: forall u. String -> ParsecT String u Identity String
 
 erlangStyle :: Tok.LanguageDef st
